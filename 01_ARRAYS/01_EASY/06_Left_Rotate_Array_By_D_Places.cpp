@@ -5,7 +5,7 @@ using namespace std;
 
 // Brute Appproach:
 //  Take a temp array. Put the k elements in the array. shift rest of the elements. And put back elements from the temp to array.
-// TC: O(n+k)
+// TC: O(n+k) SC: O(K)
 
 void leftRotateByK(vector<int> &nums, int k)
 {
@@ -36,11 +36,31 @@ void leftRotateByK(vector<int> &nums, int k)
 }
 
 // Optimal Approach: Just By observation
+// -> Reverse the first k elements
+// -> Reverse the rest (n-k) elements
+// -> Reverse the whole array.
+
+// TC: O(2n) and SC: O(1)
+
+void leftRotateOpt(vector<int> &nums, int k)
+{
+    int n = nums.size();
+    k = k % n;
+    reverse(nums.begin(), nums.begin() + k);
+    reverse(nums.begin() + k, nums.end());
+    reverse(nums.begin(), nums.end());
+
+    cout << "After left rotating the array by " << k << " places the array will be: ";
+    for (auto it : nums)
+    {
+        cout << it << " ";
+    }
+}
 
 int main()
 {
     vector<int> nums = {1, 2, 3, 4, 5, 6, 7};
     int k = 3;
-    leftRotateByK(nums, k);
+    leftRotateOpt(nums, k);
     return 0;
 }
